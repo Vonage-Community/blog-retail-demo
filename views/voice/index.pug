@@ -1,0 +1,58 @@
+doctype html 
+html 
+    head 
+        title Store Chat Login
+        script(type="module", src="https://unpkg.com/nexmo-client@latest/dist/nexmoClient.js?module")
+    
+    body 
+        p
+            | You are currently logged in as 
+            span(id="username")
+
+        p A chat agent will contact you via text shortly.
+
+        p
+            | If you would rather talk to an agent, click 
+            button(type="button", id="call_agent") here
+
+        p
+            button(type="button", id="hangup") Hang Up
+
+        script.
+            const NexmoClient = window.NexmoClient;
+            let nexmo;
+            let app;
+            const user = !{JSON.stringify(user)}
+
+            async function getJwt() {
+                let jwt;
+                await fetch('/auth/jwt')
+                    .then(results => results.json())
+                    .then(data => {
+                        jwt = data.jwt
+                    })
+                    .catch(err => console.error(err))
+
+                return jwt;
+            }
+
+            async function bootstrap() {
+                let jwt = await getJwt();
+                nexmo = new window.NexmoClient()
+                app = await nexmo.login(jwt)
+                document.getElementById('username').innerHTML = app.me.name
+
+                document.getElementById("call_agent").addEventListener('click', (event) => {
+                    app.callServer('#{from_number}');
+                })
+
+                app.on("member:call", (member, call) => {
+                    document.getElementById('hangup').addEventListener('click', (event) => {
+                        call.hangUp();
+                    });
+                })
+            }
+
+            window.addEventListener('load', (event) => {
+                bootstrap();
+            });

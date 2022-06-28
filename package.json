@@ -1,0 +1,31 @@
+{
+  "name": "blog-retail-demo",
+  "version": "1.0.0",
+  "description": "Sample NodeJS application that shows multiple Vonage products in a retail setting",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "authors": [
+    "Chris Tankersley <chris.tankersley@vonage.com>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@vonage/server-sdk": "^2.12.0-beta.0",
+    "body-parser": "^1.19.0",
+    "ci": "^2.2.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.3",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.3",
+    "eslint-plugin-promise": "^6.0.0"
+  }
+}
